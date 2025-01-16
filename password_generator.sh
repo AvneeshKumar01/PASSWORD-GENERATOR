@@ -1,3 +1,5 @@
+# !/bin/bash
+
 echo ".....password generator....."
 
 echo "Please select how many passwords you want: "
