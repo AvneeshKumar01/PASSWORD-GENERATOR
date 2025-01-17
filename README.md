@@ -1,76 +1,69 @@
+Password Generator Script
+Overview
 
+This Bash script generates secure random passwords using OpenSSL. If OpenSSL is not installed, the script provides installation instructions based on the operating system.
+Features
 
----
+    Generates a user-defined number of passwords with a custom length (1–64 characters).
+    Detects if OpenSSL is installed.
+    Provides installation instructions for OpenSSL if missing.
 
-# Password Generator Script
+Usage
 
-## Overview
-This script generates secure, random passwords using the OpenSSL `rand` command. The user can specify how many passwords they want to generate and the desired length of each password (from 1 to 64 characters).
+    Save the script to a file, e.g., password_generator.sh.
+    Make the script executable:
 
-## Features
-- **Customizable Password Quantity:** You can specify how many passwords to generate.
-- **Customizable Password Length:** You can specify the length of each generated password, between 1 and 64 characters.
-- **Secure Password Generation:** The script uses `openssl rand` to generate cryptographically secure random passwords, encoded in Base64 format.
+chmod +x password_generator.sh
 
-## Prerequisites
-- **Bash Shell**: This script requires a Unix-like shell (Linux, macOS, WSL on Windows).
-- **OpenSSL**: The script relies on OpenSSL to generate secure random passwords. OpenSSL must be installed on your system.
+Run the script:
 
-To install OpenSSL (if not already installed):
-- On Ubuntu/Debian: `sudo apt-get install openssl`
-- On macOS: OpenSSL is pre-installed.
+    ./password_generator.sh
 
-## How to Use
+Steps in the Script
 
-1. Clone or download the script to your local machine.
-2. Open a terminal.
-3. Navigate to the directory containing the script.
-4. Make the script executable (if it's not already):
-   ```bash
-   chmod +x password_generator.sh
-   ```
-5. Run the script:
-   ```bash
-   ./password_generator.sh
-   ```
-6. Follow the prompts to specify:
-   - The number of passwords you want to generate.
-   - The length of each password (between 1 and 64 characters).
+    Check OpenSSL Installation:
+        If OpenSSL is installed, the script proceeds.
+        If not, it provides instructions to install OpenSSL for:
+            Windows (using Chocolatey),
+            Linux (using apt),
+            macOS (using Homebrew).
 
-## Example Run
+    Generate Passwords:
+        The user specifies:
+            Number of passwords.
+            Length of each password.
+        The script generates passwords using:
 
-```bash
+        openssl rand -base64 48 | cut -c1-$PASS_LENGTH
+
+Example Run
+OpenSSL Installed:
+
 .....password generator.....
-
-Please select how many passwords you want: 
-3
-Select the length of the password (1-64): 
+Please select how many passwords you want:
+2
+Select the length of the password (1-64):
 12
 
 ...Generating passwords...
 
-Password 1: Zk2j1Bz9
-Password 2: S7tKnX3A
-Password 3: M8vXlT2Q
-```
+Password 1: aG3$kPz9xN@#
+Password 2: B2J&c!Xv4Ty&
 
-## Script Details
+OpenSSL Not Installed:
 
-The script generates passwords with the following steps:
-1. **User Input:**
-   - The user is prompted to input how many passwords they want (`PASS_QTY`).
-   - The user is also prompted to input the desired length of the passwords (`PASS_LENGTH`).
-2. **Password Generation:**
-   - For each password requested, OpenSSL generates a 48-byte Base64-encoded string.
-   - The script then trims the Base64 string to the desired length using `cut -c1-$PASS_LENGTH`.
-3. **Output:**
-   - Each generated password is printed with a numbered label (e.g., `Password 1`, `Password 2`, etc.).
+openssl not found
+Do you want to install openssl
+[y/n]
+y
+choose your os
+1. windows
+2. Linux
+3. Macos
+2
+run: sudo apt install openssl -y
 
-## Notes
-- The script uses OpenSSL’s random number generator, which provides cryptographically secure random values.
-- Base64 encoding is used to make the random data readable as text.
-- The password length cannot exceed 64 characters (due to Base64 encoding size).
-  
----
+Notes
 
-Feel free to adjust or enhance the file as needed based on your personal or project requirements!
+    Ensure your package manager (apt, brew, or choco) is configured correctly if OpenSSL needs to be installed.
+    Requires an active internet connection for installation.
